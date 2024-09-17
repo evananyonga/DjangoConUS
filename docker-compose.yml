@@ -1,0 +1,31 @@
+services:
+  djus-app:
+    build:
+      context: .
+    container_name: djcus
+    ports:
+      - "8005:8000"
+    depends_on:
+      - djus-db
+    volumes:
+      - ./:/var/www
+      - ./init-database.sql:/docker-entrypoint-initdb.d/init-database.sql
+  
+  djus-db:
+    container_name: dc-db
+    image: mysql:latest
+    environment:
+      - MYSQL_HOST=dc-db
+      - MYSQL_USER=mysql_user
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=djancondb
+      # - MYSQL_PASSWORD
+    ports:
+      - "3310:3306"
+    volumes:
+      - djusdata:/var/lib/mysql/
+    
+volumes:
+  djusdata:
+    driver: local
+  
