@@ -1,1 +1,3 @@
 djuenv/
+.env
+**/__pycache__/
